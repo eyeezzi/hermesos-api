@@ -1,0 +1,19 @@
+{
+  "name": "hermesos",
+  "version": "1.0.0",
+  "description": "Send your friend an SMS if you're in trouble.",
+  "main": "app.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Uzziah Eyee",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^6.0.0",
+    "mongoose": "^5.2.6"
+  }
+}
