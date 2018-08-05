@@ -1,8 +1,8 @@
-Feature: View current Check-in
+Feature: View current SOS
 
 	#  
 
-	Scenario: View Check-in
+	Scenario: View SOS
 		Given Bob has an account
 		When Bob signs in to the app
-		Then Bob should see his current Check-in item
+		Then Bob should see his current SOS item
