@@ -1,0 +1,27 @@
+1. Use case tells you what the business does.
+
+2. ER Model outlines *the things* the business needs to remember in order to fufill the use cases.
+
+	Use "Peter Chen Notation" or verbal form
+
+Entity Relationship Concepts:
+	An ER Model shows the connection between *Entity-types*. 
+
+	For example the statement "A President gives a Speech" shows that the President and Speech entity-types are related by the former "giving" the latter.
+
+	An Entity is a unique instance of an Entity-type. For example Obama is a President and Innauguration Address is a Speech. So you can say "Obama gives an Innauguration Address". But in business we are interested in capturing the general case, that is why ER Models deal with Entity-types not Entites. This distinction is important.
+
+	But computer scientist are lazy and smart, so they simply say Entity while Entity-types is meant.
+
+	Entity-type: a noun like a physical object, an event, or a concept
+	Relationship: a transitive verb; what an entity-type does to another entity-type
+
+		Example: 
+			A Student writes an Exam
+				Entity-types = Student and Exam
+				Relationship = writes
+
+	> Transitive verbs require 1 or more objects: for instance "A Soldier *carries* a Gun". The verb *carries* takes the object Gun.
+
+	Peter Chen Notation:
+		-
