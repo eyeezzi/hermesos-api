@@ -6,6 +6,7 @@ if (process.env.NODE_ENV !== 'production') {
 	}
 }
 
+const DBService = require('./services/DBService')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const express = require('express')
@@ -13,6 +14,7 @@ const AuthRouter = require('./routes/auth')
 const APIRouter = require('./routes/api')
 const { errorHandler } = require('./routes/middleware')
 
+DBService.connect()
 const app = express()
 app.use(cookieParser())
 app.use(bodyParser.json())

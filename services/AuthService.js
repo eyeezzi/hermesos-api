@@ -1,4 +1,5 @@
 const TwilioManager = require('./TwilioManager')
+const UserController = require('../controllers/UserController') //?
 
 const AuthService = {
 
@@ -38,7 +39,7 @@ const AuthService = {
 
 		try {
 			const verifRes = await TwilioManager.verifyCode(phone_number, country_code, verification_code)
-			// todo: create user in DB
+			const user = await UserController.createUser(name, phone_number, country_code)
 			// todo: generate JWT
 			// todo: return JWT
 			return res.send(verifRes.data)

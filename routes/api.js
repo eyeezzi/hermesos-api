@@ -14,6 +14,13 @@ api.route('/sos')
 api.route('/sos/:id')
 	.delete(SOSController.delete)
 
+// just for test
+api.route('/users')
+	.post(async (req, res) => {
+		let user = await UserController.createUser('test', '7703839393', 1)
+		res.json(user)
+	})
+
 module.exports = api
 
 /*

@@ -1,12 +1,14 @@
 const mongoose = require('mongoose')
 
-const userSchema = mongoose.Schema({
-	_id: mongoose.Schema.Types.ObjectId,
+const UserSchema = new mongoose.Schema({
 	name: String,
 	phone_number: String,
 	country_code: Number,
-	sms_remaining: Number,
-	// sos_ids: Int16Array
+	sms_remaining: Number
 })
 
-module.exports = mongoose.model('User', userSchema)
+UserSchema.methods.findSOS = (cb) => {
+	return cb
+}
+
+module.exports = mongoose.model('User', UserSchema)
