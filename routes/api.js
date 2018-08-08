@@ -1,7 +1,8 @@
 const express = require('express')
-const api = express.Router()
 const UserController = require('../controllers/UserController')
 const SOSController = require('../controllers/SOSController')
+
+const api = express.Router()
 
 api.route('/me')
 	.get(UserController.me)

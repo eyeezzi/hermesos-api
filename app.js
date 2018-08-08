@@ -6,16 +6,23 @@ if (process.env.NODE_ENV !== 'production') {
 	}
 }
 
-const app = require('express')()
+const cookieParser = require('cookie-parser')
+const bodyParser = require('body-parser')
+const express = require('express')
 const AuthRouter = require('./routes/auth')
 const APIRouter = require('./routes/api')
 
+const app = express()
+app.use(cookieParser())
+app.use(bodyParser.json())
 app.use('/auth', AuthRouter)
 app.use('/api', APIRouter)
 
 const port = process.env.PORT || 3000
 
-app.listen(port, () => console.log(`Listening on http://localhost:${port}`))
+const server = app.listen(port, () => {
+	console.log(`Listening on ${ server.address().address }:${ server.address().port }`)
+})
 
 /*
 Following good design, I see no occasion where the following should be in an app.js or routes file:
