@@ -27,7 +27,7 @@ const AuthService = {
 	sign_up_verify_code: async (req, res) => {
 		// Ensure presence of name, phone_number, and country_code in cookie from sms-request step
 		// Also ensure verification code is present
-		const { name, phone_number, country_code } = req.cookies.user_info || {}
+		const { name, phone_number, country_code } = JSON.parse(req.cookies['user_info']) || {}
 		const verification_code = req.body.verification_code || {}
 		
 		if (!(name && phone_number && country_code && verification_code)) {
@@ -36,10 +36,8 @@ const AuthService = {
 			throw err
 		}
 
-		console.log(user_info)
-
 		try {
-			const verifRes = await TwilioManager.verifyCode(data.phone_number, data.country_code, verification_code)
+			const verifRes = await TwilioManager.verifyCode(phone_number, country_code, verification_code)
 			// todo: create user in DB
 			// todo: generate JWT
 			// todo: return JWT
@@ -49,6 +47,7 @@ const AuthService = {
 			throw err
 		}
 	},
+	
 	sign_in_request_sms: async (req, res) => {
 		// assert presence of: phone and country_code
 

@@ -13,14 +13,14 @@ const TwilioManager = {
 		return axios.post('https://api.authy.com/protected/json/phones/verification/start', payload)
 	},
 
-	verifyCode: (phone_number, country_code, verification_code) => {
-		const payload = {
+	verifyCode: async (phone_number, country_code, verification_code) => {
+		const params = {
 			"api_key": process.env.TWILIO_API_KEY,
 			"verification_code": verification_code,
 			"phone_number": phone_number,
 			"country_code": country_code
 		}
-		return axios.post('https://api.authy.com/protected/json/phones/verification/check', payload)
+		return axios.get('https://api.authy.com/protected/json/phones/verification/check', { params: params })
 	}
 }
 
