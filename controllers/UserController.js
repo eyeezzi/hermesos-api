@@ -13,6 +13,9 @@ const UserController = {
 			sms_remaining: process.env.SIGNUP_SMS_BONUS || 0
 		})
 		return user.save()
+	},
+	findUser: async (phone_number, country_code) => {
+		return User.findOne({phone_number: phone_number, country_code: country_code})
 	}
 }
 

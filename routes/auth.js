@@ -15,10 +15,10 @@ auth.route('/sign_up/verify_code')
 	.post(errorWrapper(AuthService.sign_up_verify_code))
 
 auth.route('/sign_in/request_sms')
-	.get(AuthService.sign_in_request_sms)
+	.post(errorWrapper(AuthService.sign_in_request_sms))
 
 auth.route('/sign_in/verify_code')
-	.get(AuthService.sign_in_verify_code)
+	.post(AuthService.sign_in_verify_code)
 
 auth.route('/delete_account')
 	.get(AuthService.delete_account)
