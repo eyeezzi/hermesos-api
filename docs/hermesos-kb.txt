@@ -25,3 +25,5 @@ Entity Relationship Concepts:
 
 	Peter Chen Notation:
 		-
+
+Express sub routers are awesome for modularizing routes
