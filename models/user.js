@@ -5,7 +5,7 @@ const userSchema = mongoose.Schema({
 	name: String,
 	phone_number: String,
 	country_code: Number,
-	sms_balance: Number,
+	sms_remaining: Number,
 	// sos_ids: Int16Array
 })
 

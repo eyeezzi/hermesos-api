@@ -6,43 +6,22 @@ if (process.env.NODE_ENV !== 'production') {
 	}
 }
 
-const User = require('./models/user')
-const mongoose = require('mongoose')
+const app = require('express')()
+const AuthRouter = require('./routes/auth')
+const APIRouter = require('./routes/api')
 
-const db_connection_options = {
-	useNewUrlParser: true,
-	retryWrites: true,
-	// dbName: process.env.DB_NAME,
-	// user: process.env.MONGODB_USERNAME,
-	// pass: process.env.MONGODB_PASSWORD
-}
+app.use('/auth', AuthRouter)
+app.use('/api', APIRouter)
 
-const db = mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/${process.env.DB_NAME}`, db_connection_options)
-// const db = mongoose.connect(process.env.MONGODB_URL, db_connection_options)
-db.then(x => {
-	console.log('Succeeded!')
+const port = process.env.PORT || 3000
 
-	createUser('Alice', '123-456-7890', '234', '2')
-})
-.catch(err => {
-	console.error(`Failed with error: ${err}`)
-})
+app.listen(port, () => console.log(`Listening on http://localhost:${port}`))
 
-const createUser = (name, phone_number, country_code, sms_balance) => {
+/*
+Following good design, I see no occasion where the following should be in an app.js or routes file:
 
-	const user = new User({
-		_id: new mongoose.Types.ObjectId(),
-		name: name,
-		phone_number: phone_number,
-		country_code: country_code,
-		sms_balance: sms_balance
-	})
+1. A model: used by controllers when needed.
+2. A database connection: should be in a service used by controllers when needed.
 
-	user.save()
-		.then(result => {
-			console.log(result)
-		})
-		.catch(err => {
-			console.log(err)
-		})
-}
+* the routes file should simply handoff matching requests to controllers (aka handlers)
+*/
