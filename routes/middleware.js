@@ -1,4 +1,6 @@
 const Middleware = {
+	errorWrapper: fn => (...args) => fn(...args).catch(args[2]),
+	
 	errorHandler: (err, req, res, next) => {
 		console.error(err.toString())
 		res
