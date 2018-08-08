@@ -5,7 +5,7 @@ const UserController = {
 	me: async (req, res) => {
 
 	},
-	createUser: (name, phone_number, country_code) => {
+	createUser: async (name, phone_number, country_code) => {
 		const user = new User({
 			name: name,
 			phone_number: phone_number,

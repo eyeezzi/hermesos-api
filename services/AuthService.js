@@ -1,5 +1,6 @@
 const TwilioManager = require('./TwilioManager')
 const UserController = require('../controllers/UserController') //?
+const jwt = require('jsonwebtoken')
 
 const AuthService = {
 
@@ -38,11 +39,10 @@ const AuthService = {
 		}
 
 		try {
-			const verifRes = await TwilioManager.verifyCode(phone_number, country_code, verification_code)
+			const _ = await TwilioManager.verifyCode(phone_number, country_code, verification_code)
 			const user = await UserController.createUser(name, phone_number, country_code)
-			// todo: generate JWT
-			// todo: return JWT
-			return res.send(verifRes.data)
+			const jwt = createJWT(user.toObject())
+			return res.json({jwt: jwt})
 		} catch (err) {
 			err.statusCode = 500
 			throw err
@@ -52,7 +52,7 @@ const AuthService = {
 	sign_in_request_sms: async (req, res) => {
 		// assert presence of: phone and country_code
 
-		// assert user with phone exits in DB
+		// assert user with coutry+phone exits in DB
 
 		// temp save input in cookie
 
@@ -81,7 +81,25 @@ const AuthService = {
 		// remove jwt from token
 
 		// return status code to client
-	},
+	}
+}
+
+const createJWT = (claims) => {
+	const options = {
+		algorithm: 'HS256',
+		expiresIn: parseInt(process.env.JWT_AGE_SECS) || 3600
+	}
+	const token = jwt.sign(claims, process.env.JWT_SIGNING_SECRET, options)
+	return token
+}
+
+const verifyJWT = (token) => {
+	const options = {
+		algorithms: ['HS256'],
+		maxAge: parseInt(process.env.JWT_AGE_SECS) || 3600
+	}
+	const claims = jwt.verify(token, process.env.JWT_SIGNING_SECRET, options)
+	return claims
 }
 
 module.exports = AuthService
