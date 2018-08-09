@@ -1,8 +1,11 @@
 const express = require('express')
 const UserController = require('../controllers/UserController')
 const SOSController = require('../controllers/SOSController')
+const { authShield } = require('./middleware')
 
 const api = express.Router()
+
+api.use(authShield)
 
 api.route('/me')
 	.get(UserController.me)
@@ -11,15 +14,15 @@ api.route('/me')
 // 	.post(SOSController.post)
 // 	.get(SOSController.list)
 
-api.route('/sos/:id')
-	.delete(SOSController.delete)
+// api.route('/sos/:id')
+// 	.delete(SOSController.delete)
 
-// just for test
-api.route('/sos')
-	.post(async (req, res) => {
-		let sos = await SOSController.createSOS('help', 'john', '747484773838', '1', new Date())
-		res.json(sos)
-	})
+// // just for test
+// api.route('/sos')
+// 	.post(async (req, res) => {
+// 		let sos = await SOSController.createSOS('help', 'john', '747484773838', '1', new Date())
+// 		res.json(sos)
+// 	})
 
 module.exports = api
 

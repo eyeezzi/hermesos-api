@@ -1,7 +1,7 @@
 const express = require('express')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
-const AuthService = require('../services/AuthService')
+const { AuthService } = require('../services/AuthService')
 const { errorWrapper } = require('./middleware')
 
 const auth = express.Router()

@@ -3,8 +3,20 @@ const User = require('../models/User')
 const UserController = {
 
 	me: async (req, res) => {
+		const userID = req.claims._id
 
+		if (!userID) {
+			return res.status(500).json({message: 'No user id in request'})
+		}
+
+		try {
+			const user = await User.findById(userID)
+			res.json(user.toObject())
+		} catch (err) {
+			res.status(500).json({message: err.message})
+		}
 	},
+	
 	createUser: async (name, phone_number, country_code) => {
 		const user = new User({
 			name: name,

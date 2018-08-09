@@ -99,7 +99,7 @@ const AuthService = {
 			throw err
 		}
 	},
-	
+
 	delete_account: async (req, res) => {
 		// assert jwt is valid
 
@@ -131,4 +131,14 @@ const verifyJWT = (token) => {
 	return claims
 }
 
-module.exports = AuthService
+// :( hack: createJWT and verifyJWT should all be inside the AuthService
+
+// module.exports.AuthService = AuthService
+// module.exports.createJWT = createJWT
+// module.exports.verifyJWT = verifyJWT
+
+module.exports = {
+	AuthService: AuthService,
+	createJWT: createJWT,
+	verifyJWT: verifyJWT
+}

@@ -1,4 +1,5 @@
 const SOS = require('../models/SOS')
+
 const SOSController = {
 	post: async (req, res) => {
 		// preq: jwt.userID
