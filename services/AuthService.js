@@ -36,10 +36,20 @@ const AuthService = {
 	},
 
 	sign_up_verify_code: async (req, res) => {
+		// Ensure we have the temporary user info from the SMS request step
+		let user_info = {}
+
+		try {
+			user_info = JSON.parse(req.cookies['user_info'])
+		} catch (err) {
+			err = new Error('Missing or invalid data from SMS Request step')
+			err.statusCode = 400
+			throw err
+		}
+
 		// Ensure presence of name, phone_number, and country_code in cookie from sms-request step
-		// Also ensure verification code is present
-		const { name, phone_number, country_code } = JSON.parse(req.cookies['user_info']) || {}
-		const verification_code = req.body.verification_code || {}
+		const { name, phone_number, country_code } = user_info
+		const verification_code = req.body.verification_code
 		
 		if (!(name && phone_number && country_code && verification_code)) {
 			const err = new Error('One or more required fields are null')
@@ -63,7 +73,7 @@ const AuthService = {
 		const {country_code, phone_number} = req.body
 		
 		if (!(country_code && phone_number)) {
-			const err = new Error('One or more required fields are null')
+			const err = new Error('Missing country_code or phone_number')
 			err.statusCode = 400
 			throw err
 		}
@@ -87,13 +97,23 @@ const AuthService = {
 	},
 
 	sign_in_verify_code: async (req, res) => {
-		// assert presence of: phone and country_code in temp cookie
-		// assert presence of: verification code
-		const { phone_number, country_code } = JSON.parse(req.cookies['user_info']) || {}
-		const verification_code = req.body.verification_code || {}
+		// Ensure we have the temporary user info from the SMS request step
+		let user_info = {}
+
+		try {
+			user_info = JSON.parse(req.cookies['user_info'])
+		} catch (err) {
+			err = new Error('Missing or invalid data from SMS Request step')
+			err.statusCode = 400
+			throw err
+		}
+
+		// Ensure the user info are what we expect
+		const { phone_number, country_code } = user_info
+		const verification_code = req.body.verification_code
 		
 		if (!(phone_number && country_code && verification_code)) {
-			const err = new Error('One or more required fields are null')
+			const err = new Error('Missing any of: phone_number, country_code, or verification_code')
 			err.statusCode = 400
 			throw err
 		}

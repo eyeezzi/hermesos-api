@@ -23,3 +23,7 @@
 3. Save the model object and confirm in the promise return.
 
 > Tip: Install *MongoDB Compass* on your machine and use it to explore/visualize your cluster, databases, and collections.
+
+## Pains of working in Javascript
+
+- Because function return types and exception behaviour are not explicitly specified, there are no easy ways to know whether a function throws an exception. For example, some a function like `parseInt('text')` will return `NaN` while `JSON.parse('not-json')` will throw an exception.
