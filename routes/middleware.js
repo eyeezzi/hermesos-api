@@ -19,7 +19,6 @@ const Middleware = {
 		}
 
 		try {
-			console.log(verifyJWT)
 			const claims = verifyJWT(jwt)
 			// ? = retrieve user info from DB and attach to req
 			// req.claims should now be accessible from any request handler

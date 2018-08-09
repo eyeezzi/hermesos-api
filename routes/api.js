@@ -1,18 +1,18 @@
 const express = require('express')
 const UserController = require('../controllers/UserController')
 const SOSController = require('../controllers/SOSController')
-const { authShield } = require('./middleware')
+const { errorWrapper, authShield } = require('./middleware')
 
 const api = express.Router()
 
 api.use(authShield)
 
 api.route('/me')
-	.get(UserController.me)
+	.get(errorWrapper(UserController.me))
 
-// api.route('/sos')
-// 	.post(SOSController.post)
-// 	.get(SOSController.list)
+api.route('/sos')
+	.post(errorWrapper(SOSController.createSOS))
+	// .get(SOSController.list)
 
 // api.route('/sos/:id')
 // 	.delete(SOSController.delete)
