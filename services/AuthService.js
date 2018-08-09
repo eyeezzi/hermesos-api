@@ -67,7 +67,7 @@ const AuthService = {
 		}
 
 		res.cookie('user_info', JSON.stringify(req.body))
-		
+
 		try {
 			const smsRes = await TwilioManager.requestSMS(phone_number, country_code)
 			return res.send(smsRes.data)
@@ -80,14 +80,26 @@ const AuthService = {
 	sign_in_verify_code: async (req, res) => {
 		// assert presence of: phone and country_code in temp cookie
 		// assert presence of: verification code
+		const { phone_number, country_code } = JSON.parse(req.cookies['user_info']) || {}
+		const verification_code = req.body.verification_code || {}
+		
+		if (!(phone_number && country_code && verification_code)) {
+			const err = new Error('One or more required fields are null')
+			err.statusCode = 400
+			throw err
+		}
 
-		// send code + tmp data to Twilio for verification
-
-		// if failure: return message to client
-
-		// otherwise, generate JWT
-		// return jwt to client
+		try {
+			const _ = await TwilioManager.verifyCode(phone_number, country_code, verification_code)
+			const user = await UserController.findUser(phone_number, country_code)
+			const jwt = createJWT(user.toObject())
+			return res.json({jwt: jwt})
+		} catch (err) {
+			err.statusCode = 500
+			throw err
+		}
 	},
+	
 	delete_account: async (req, res) => {
 		// assert jwt is valid
 
