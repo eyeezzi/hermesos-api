@@ -59,9 +59,16 @@ const AuthService = {
 			throw err
 		}
 
+		const user = await UserController.findUser(phone_number, country_code)
+		if (!user) {
+			const err = new Error('No such user found')
+			err.statusCode = 404
+			throw err
+		}
+
+		res.cookie('user_info', JSON.stringify(req.body))
+		
 		try {
-			const user = await UserController.findUser(phone_number, country_code)
-			res.cookie('user_info', JSON.stringify(req.body))
 			const smsRes = await TwilioManager.requestSMS(phone_number, country_code)
 			return res.send(smsRes.data)
 		} catch (err) {
