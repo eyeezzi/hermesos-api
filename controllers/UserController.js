@@ -17,6 +17,7 @@ const UserController = {
 		}
 	},
 	
+	// should probably be in the user repo. That is the User model
 	createUser: async (name, phone_number, country_code) => {
 		const user = new User({
 			name: name,
