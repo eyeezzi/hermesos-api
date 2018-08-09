@@ -5,20 +5,29 @@ const jwt = require('jsonwebtoken')
 const AuthService = {
 
 	sign_up_request_sms: async (req, res) => {
-		const data = req.body
+		// const data = req.body
+		const { name, phone_number, country_code } = req.body
 
 		// Ensure name, phone_number, and country_code are present
-		if (!(data.name && data.phone_number && data.country_code)) {
+		if (!(name && phone_number && country_code)) {
 			const err = new Error('One or more required fields are null')
 			err.statusCode = 400
 			throw err
 		}
 
+		// Ensure user with phone_number AND country_code does not currently exits
+		const user = await UserController.findUser(phone_number, country_code)
+		if (user) {
+			const err = new Error('User already exists')
+			err.statusCode = 404
+			throw err
+		}
+
 		// temporarily save user-info for token verification step
-		res.cookie('user_info', JSON.stringify(data))
+		res.cookie('user_info', JSON.stringify(req.body))
 
 		try {
-			const smsRes = await TwilioManager.requestSMS(data.phone_number, data.country_code)
+			const smsRes = await TwilioManager.requestSMS(phone_number, country_code)
 			return res.send(smsRes.data)
 		} catch (err) {
 			err.statusCode = 500
