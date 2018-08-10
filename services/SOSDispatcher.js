@@ -11,6 +11,8 @@ const SOSDispatcher = {
 		const cursor = SOS.find({ send_at: { $lt: Date() } }).cursor()
 		
 		for (let doc = await cursor.next(); doc != null; doc = await cursor.next()) {
+			// TODO: don't send sms if owner has 0 balance
+			// TODO: decrement balance on successfu send
 			const sos = doc.toObject()
 			try {
 				const smsRes = await TwilioManager.sendSMS(sos.to_phone_number, sos.to_country_code, sos.message)
