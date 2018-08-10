@@ -5,6 +5,11 @@ const { errorWrapper, authShield } = require('./middleware')
 
 const api = express.Router()
 
+api.route('/status')
+	.get(async (req, res) => {
+		res.status(200).json({ message: 'Alive and kicking.' })
+	})
+
 api.use(authShield)
 
 api.route('/me')
