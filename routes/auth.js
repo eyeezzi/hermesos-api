@@ -20,7 +20,4 @@ auth.route('/sign_in/request_sms')
 auth.route('/sign_in/verify_code')
 	.post(errorWrapper(AuthService.sign_in_verify_code))
 
-auth.route('/delete_account')
-	.get(AuthService.delete_account)
-
 module.exports = auth

@@ -9,6 +9,7 @@ api.use(authShield)
 
 api.route('/me')
 	.get(errorWrapper(UserController.me))
+	.delete(errorWrapper(UserController.deleteAccount))
 
 api.route('/sos')
 	.post(errorWrapper(SOSController.create))

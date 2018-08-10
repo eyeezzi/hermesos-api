@@ -61,6 +61,10 @@ const SOSController = {
 		} catch (err) {
 			return res.status(500).json({ message: err.message })
 		}
+	},
+
+	deleteAllByUser: async (userID) => {
+		return SOS.deleteMany({ created_by: userID })
 	}
 }
 

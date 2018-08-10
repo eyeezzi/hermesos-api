@@ -127,19 +127,8 @@ const AuthService = {
 			err.statusCode = 500
 			throw err
 		}
-	},
-
-	delete_account: async (req, res) => {
-		// assert jwt is valid
-
-		// delete all sos with jwt.userID
-
-		// delete user with jwt.userID
-
-		// remove jwt from token
-
-		// return status code to client
 	}
+	
 }
 
 const createJWT = (claims) => {

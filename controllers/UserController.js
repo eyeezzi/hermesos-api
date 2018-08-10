@@ -1,4 +1,5 @@
 const User = require('../models/User')
+const SOSController = require('./SOSController')
 
 const UserController = {
 
@@ -27,9 +28,28 @@ const UserController = {
 		})
 		return user.save()
 	},
+
 	findUser: async (phone_number, country_code) => {
 		return User.findOne({phone_number: phone_number, country_code: country_code})
+	},
+
+	deleteAccount: async (req, res) => {
+		const userID = req.claims._id
+
+		if (!userID) {
+			return res.status(500).json({message: 'No user id in request'})
+		}
+
+		try {
+			// TODO: do this in one transaction
+			const _ = await SOSController.deleteAllByUser(userID)
+			const usrQres = await User.deleteOne({_id: userID})
+			res.status(200).json(usrQres)
+		} catch (err) {
+			res.status(500).json({message: err.message})
+		}
 	}
+
 }
 
 module.exports = UserController
