@@ -6,6 +6,8 @@ if (process.env.NODE_ENV !== 'production') {
 	}
 }
 
+const cron = require("node-cron")
+const SOSDispatcher = require('./services/SOSDispatcher')
 const DBService = require('./services/DBService')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
@@ -21,6 +23,8 @@ app.use(bodyParser.json())
 app.use('/auth', AuthRouter)
 app.use('/api', APIRouter)
 app.use(errorHandler)
+
+cron.schedule(process.env.SOS_DISPATCHER_CRON_SCHEDULE || '* * * * *', SOSDispatcher.processJobs);
 
 const port = process.env.PORT || 3000
 
