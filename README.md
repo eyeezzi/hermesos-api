@@ -31,3 +31,14 @@ Steps:
 1. Create a heroku app `heroku create <app-name>`
 2. Add your envars to heroku `heroku config:push --file <env-file>`
 3. Push your code to heroku `git push heroku master`
+
+Helpful commands:
+`heruku ps` - the state of your app
+`heroku restart`
+`heroku logs --tail`
+`heroku run bash`
+
+Gotchas:
+
+* weird case-insensitive file naming issue with git on OSX
+* config vars on heroku should be plain like `MY_VAR=my-value`, not quoted like `MY_VAR='my-value'`

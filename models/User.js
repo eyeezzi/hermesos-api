@@ -10,8 +10,8 @@ const UserSchema = new mongoose.Schema({
 // UserSchema.methods.findByPhone = (phone_number, country_code) => {
 // 	return this.findOne({phone_number: phone_number, country_code: country_code})
 // }
-UserSchema.methods.findSOS = (cb) => {
-	return cb
-}
+// UserSchema.methods.findSOS = (cb) => {
+// 	return cb
+// }
 
 module.exports = mongoose.model('User', UserSchema)
