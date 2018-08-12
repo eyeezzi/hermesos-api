@@ -6,8 +6,6 @@ if (process.env.NODE_ENV !== 'production') {
 	}
 }
 
-const cron = require("node-cron")
-const SOSDispatcher = require('./services/SOSDispatcher')
 const DBService = require('./services/DBService')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
@@ -24,13 +22,13 @@ app.use('/auth', AuthRouter)
 app.use('/api', APIRouter)
 app.use(errorHandler)
 
-cron.schedule(process.env.SOS_DISPATCHER_CRON_SCHEDULE || '* * * * *', SOSDispatcher.processJobs);
-
 const port = process.env.PORT || 3000
 
 const server = app.listen(port, () => {
 	console.log(`Listening on ${ server.address().address }:${ server.address().port }`)
 })
+
+require('./services/SMSDispatcher')()
 
 /*
 Following good design, I see no occasion where the following should be in an app.js or routes file:
