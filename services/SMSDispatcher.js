@@ -8,7 +8,7 @@ const SCHEDULE = process.env.SOS_DISPATCHER_CRON_SCHEDULE || '* * * * *'
 
 async function startCron() {
 	try {
-		const client = await MongoClient.connect(DB_URL)
+		const client = await MongoClient.connect(DB_URL, { useNewUrlParser: true })
 		const db = client.db()
 		let _ = cron.schedule(SCHEDULE, () => {
 			processSOS(db)
