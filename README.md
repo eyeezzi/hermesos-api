@@ -49,4 +49,12 @@ Schedule an SMS to your friend if you feel unsafe.
 
 ### Architecture
 
+Each subsystem is a separate repository and deployed separately.
+
 ![](docs/hermesos-api_sysarch.svg)
+
+### Entities
+
+Since in reality we are using a document database, the actual entity structure uses the *one-to-squilion* pattern to establish the relationships.
+
+![](docs/logical_database_diagram.svg)
