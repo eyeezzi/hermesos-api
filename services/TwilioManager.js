@@ -24,6 +24,9 @@ const TwilioManager = {
 		return axios.get('https://api.authy.com/protected/json/phones/verification/check', { params: params })
 	},
 
+	// -----------
+	// @deprecated
+	// -----------
 	sendSMS: async (phone_number, country_code, message) => {
 		const endpoint = `https://api.twilio.com/2010-04-01/Accounts/${process.env.TWILIO_ACCOUNT_SID}/Messages.json`
 		const params = {

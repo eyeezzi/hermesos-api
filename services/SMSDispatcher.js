@@ -23,7 +23,6 @@ async function processSOS(db) {
 
 	try {
 		const SOSCollection = await getCollection(db, 'sos')
-
 		const cursor = SOSCollection.find({send_at: {$lte: new Date()} })
 		
 		while (await cursor.hasNext()) {

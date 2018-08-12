@@ -1,3 +1,7 @@
+// --------------------------------------
+// @deprecated: use SMSDispatcher instead
+// --------------------------------------
+
 const SOS = require('../models/SOS')
 const TwilioManager = require('./TwilioManager')
 
