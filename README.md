@@ -18,6 +18,7 @@ Schedule an SMS to your friend if you feel unsafe.
 	npm run start
 
 > Please note that this application relies on other services like a cloud-hosted Mongo DB cluster. So, you'll need to supply the appropriate environment variables in `example.env` and rename it to `.env`
+
 ## Dev Notes
 
 ### Deployment to Heroku
@@ -43,3 +44,9 @@ Schedule an SMS to your friend if you feel unsafe.
 
 * weird case-insensitive file naming issue with git on OSX
 * config vars on heroku should be plain like `MY_VAR=my-value`, not quoted like `MY_VAR='my-value'`
+
+## Project Documentation
+
+### Architecture
+
+![](docs/hermesos-api_sysarch.svg)
