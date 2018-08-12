@@ -150,11 +150,6 @@ const verifyJWT = (token) => {
 }
 
 // :( hack: createJWT and verifyJWT should all be inside the AuthService
-
-// module.exports.AuthService = AuthService
-// module.exports.createJWT = createJWT
-// module.exports.verifyJWT = verifyJWT
-
 module.exports = {
 	AuthService: AuthService,
 	createJWT: createJWT,
