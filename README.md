@@ -59,6 +59,10 @@ Each subsystem is a separate repository and deployed separately.
 
 ![](docs/hermesos_user_signup_sd.svg)
 
+#### User can sign in with phone number
+
+![](docs/hermesos_user_signin_flow.svg)
+
 ### Entities
 
 Since in reality we are using a document database, the actual entity structure uses the *one-to-squilion* pattern to establish the relationships.
