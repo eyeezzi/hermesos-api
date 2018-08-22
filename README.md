@@ -65,6 +65,6 @@ Each subsystem is a separate repository and deployed separately.
 
 ### Entities
 
-Since in reality we are using a document database, the actual entity structure uses the *one-to-squilion* pattern to establish the relationships.
+![](docs/hemesos_erd.svg)
 
-![](docs/logical_database_diagram.svg)
+![](docs/hermesos_document_db_design.svg)
